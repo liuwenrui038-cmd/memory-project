@@ -1,0 +1,59 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+POST http://localhost:8080/api/memories
+Content-Type: application/json
+
+{
+  "title": "地球最后的温室",
+  "type": "BOOK",
+  "feeling": "这是我想记录的一种精神食粮。",
+  "discoverDate":"2020-06-01"
+}
+
+###
+GET http://localhost:8080/api/memories
+Accept: application/json
+
+###
+POST http://localhost:8080/api/memories
+Content-Type: application/json
+
+{
+  "title": "哈利·波特",
+  "type": "BOOK",
+  "feeling": "这是我从小到大反复回去的世界。"
+}
+
+
+###
+POST http://localhost:8080/api/memories
+Content-Type: application/json
+
+{
+  "title": "燃烧女子的肖像",
+  "type": "MOVIE",
+  "feeling": "看完之后留下了一些想法。"
+}
+
+###
+GET http://localhost:8080/api/memories/1
+Accept: application/json
+
+###
+PUT http://localhost:8080/api/memories/1
+Content-Type: application/json
+
+{
+  "title": "百年孤独（第二次阅读）",
+  "type": "BOOK",
+  "feeling": "第二次阅读关注点已经完全不同了。"
+}
+
+###
+DELETE http://localhost:8080/api/memories/3
+
+###
+GET http://localhost:8080/api/memories/search?keyword=哈利
