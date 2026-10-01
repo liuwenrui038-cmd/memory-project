@@ -57,3 +57,20 @@ DELETE http://localhost:8080/api/memories/3
 
 ###
 GET http://localhost:8080/api/memories/search?keyword=哈利
+
+
+###
+POST http://localhost:8080/api/memories
+Content-Type: application/json
+
+{
+"title":"哈利波特",
+"tags":[
+    {
+        "name":"魔法"
+    },
+    {
+        "name":"童年"
+    }
+]
+}

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import java.util.List;
 
 @Entity
 @Table(name="memory_item")
@@ -29,6 +30,15 @@ public class MemoryItem {
 
     @Enumerated(EnumType.STRING)
     private MemoryType type;
+
+    //tag和item的中间表
+    @ManyToMany
+    @JoinTable(
+            name="memory_item_tag",
+            joinColumns=@JoinColumn(name="memory_id"),//外键
+            inverseJoinColumns=@JoinColumn(name="tag_id")
+    )
+    private List<Tag> tags;
 
     public MemoryItem(){
 
@@ -81,4 +91,10 @@ public class MemoryItem {
         this.discoverDate=discoverDate;
     }
 
+    public List<Tag> getTags(){
+        return tags;
+    }
+    public void setTags(List<Tag> tags){
+        this.tags=tags;
+    }
 }
