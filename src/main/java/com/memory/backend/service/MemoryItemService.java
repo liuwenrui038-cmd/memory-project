@@ -84,5 +84,9 @@ public class MemoryItemService {
         return memoryItemRepository.findByTitleContaining(keyword);
     }
 
+    public List<MemoryItem> searchMemoriesByTag(String name){
+        return memoryItemRepository.findByTags_Name(name);
+    }
+
 
 }

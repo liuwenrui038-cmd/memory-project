@@ -9,4 +9,5 @@ import java.util.List;
 public interface MemoryItemRepository
         extends JpaRepository<MemoryItem,Long> {
     List<MemoryItem> findByTitleContaining(String keyword);
+    List<MemoryItem> findByTags_Name(String name);
 }

@@ -50,5 +50,8 @@ public class MemoryItemController {
         return memoryItemService.searchMemories(keyword);
     }
 
-
+    @GetMapping("/searchbytag")
+    public List<MemoryItem> searchMemoriesByTag(@RequestParam("name") String name){
+        return memoryItemService.searchMemoriesByTag(name);
+    }
 }
