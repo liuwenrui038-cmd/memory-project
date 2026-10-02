@@ -2,7 +2,6 @@ package com.memory.backend.controller;
 
 import com.memory.backend.entity.MemoryItem;
 import com.memory.backend.service.MemoryItemService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,4 +53,6 @@ public class MemoryItemController {
     public List<MemoryItem> searchMemoriesByTag(@RequestParam("name") String name){
         return memoryItemService.searchMemoriesByTag(name);
     }
+
+
 }
