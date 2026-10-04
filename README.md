@@ -10,7 +10,9 @@ Memory
 │   └── 自动创建新 Tag
 ├── Memory ↔ Tag 多对多
 ├── Update 时同步 Tag 关系
-└── 根据 Tag 筛选 Memory
+├── 根据 Tag 筛选 Memory
+└── 计算每个Tag标记几条Memory
+
 
 对应 API：
 POST   /api/memories
@@ -21,3 +23,6 @@ DELETE /api/memories/{id}
 
 GET    /api/memories/search?keyword=xxx
 GET    /api/memories/searchbytag?name=xxx
+
+GET    /api/tags
+GET    /api/tags/{tagId}/count
