@@ -1,11 +1,14 @@
 package com.memory.backend.service;
 
 import com.memory.backend.entity.MemoryItem;
+import com.memory.backend.entity.MemoryType;
 import com.memory.backend.entity.Tag;
 import com.memory.backend.repository.MemoryItemRepository;
 import com.memory.backend.repository.TagRepository;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,6 +89,42 @@ public class MemoryItemService {
 
     public List<MemoryItem> searchMemoriesByTag(String name){
         return memoryItemRepository.findByTags_Name(name);
+    }
+
+    public List<MemoryItem> filterMemories(Boolean favorite, MemoryType type) {
+
+
+
+        Specification<MemoryItem> spec = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (favorite != null) {
+                predicates.add(
+                        criteriaBuilder.equal(
+                        root.get("favorite"),
+                        favorite
+                        )
+                );
+            }
+
+            if(type!=null){
+                predicates.add(
+                        criteriaBuilder.equal(
+                                root.get("type"),
+                                type
+                        )
+                );
+            }
+
+            if(predicates.isEmpty()){
+                return criteriaBuilder.conjunction();
+            }else {
+                return criteriaBuilder.and(
+                        predicates.toArray(new Predicate[0])
+                );
+            }
+        };
+        return memoryItemRepository.findAll(spec);
     }
 
 

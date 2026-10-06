@@ -1,6 +1,7 @@
 package com.memory.backend.controller;
 
 import com.memory.backend.entity.MemoryItem;
+import com.memory.backend.entity.MemoryType;
 import com.memory.backend.service.MemoryItemService;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,5 +55,9 @@ public class MemoryItemController {
         return memoryItemService.searchMemoriesByTag(name);
     }
 
-
+    @GetMapping("/filter")
+    public List<MemoryItem> filterMemories(@RequestParam(required = false) Boolean favorite,
+                                           @RequestParam(required = false) MemoryType type){
+        return memoryItemService.filterMemories(favorite,type);
+    }
 }
