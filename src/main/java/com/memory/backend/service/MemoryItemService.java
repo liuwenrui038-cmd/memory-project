@@ -5,6 +5,9 @@ import com.memory.backend.entity.MemoryType;
 import com.memory.backend.entity.Tag;
 import com.memory.backend.repository.MemoryItemRepository;
 import com.memory.backend.repository.TagRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -71,6 +74,8 @@ public class MemoryItemService {
         existingMemory.setFavorite(memoryItem.getFavorite());
         //existingMemory.setTags(memoryItem.getTags());错误
         List<Tag> actualTags=new ArrayList<>();
+
+        //check if need to add new tag
         for(Tag tag : memoryItem.getTags()){
             Optional<Tag> exitingTag=tagRepository.findByName(tag.getName());
             if(exitingTag.isPresent()){
@@ -139,5 +144,10 @@ public class MemoryItemService {
     public List<MemoryItem> sortMemories(){
         Sort sort=Sort.by(Sort.Direction.DESC,"discoverDate");
         return memoryItemRepository.findAll(sort);
+    }
+
+    public Page<MemoryItem> getMemoriesByPage(int page,int size){
+        Pageable pageable=PageRequest.of(page,size,Sort.Direction.DESC,"discoverDate");
+        return memoryItemRepository.findAll(pageable);
     }
 }

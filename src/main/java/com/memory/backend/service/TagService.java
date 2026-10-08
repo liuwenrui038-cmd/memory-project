@@ -1,6 +1,7 @@
 package com.memory.backend.service;
 
 import com.memory.backend.dto.TagDTO;
+import com.memory.backend.entity.Tag;
 import com.memory.backend.repository.TagRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,15 @@ public class TagService {
 
     public TagService(TagRepository tagRepository){
         this.tagRepository=tagRepository;
+    }
+
+    public Tag updateTag(Long id,Tag tag){
+        Tag existingTag=tagRepository.findById(id).orElse(null);
+        if(existingTag==null){
+            return null;
+        }
+        existingTag.setName(tag.getName());
+        return tagRepository.save(existingTag);
     }
 
     public long countMemoriesByTagId(Long tagId){

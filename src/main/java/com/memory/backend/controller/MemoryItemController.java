@@ -3,6 +3,7 @@ package com.memory.backend.controller;
 import com.memory.backend.entity.MemoryItem;
 import com.memory.backend.entity.MemoryType;
 import com.memory.backend.service.MemoryItemService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,5 +65,10 @@ public class MemoryItemController {
     @GetMapping("/sort")
     public List<MemoryItem> sortMemories(){
         return memoryItemService.sortMemories();
+    }
+
+    @GetMapping("/page")
+    public Page<MemoryItem> getMemoriesByPage(@RequestParam Integer page){
+        return memoryItemService.getMemoriesByPage(page,2);
     }
 }

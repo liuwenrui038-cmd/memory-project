@@ -1,11 +1,9 @@
 package com.memory.backend.controller;
 
 import com.memory.backend.dto.TagDTO;
+import com.memory.backend.entity.Tag;
 import com.memory.backend.service.TagService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +24,11 @@ public class TagController {
     @GetMapping
     public List<TagDTO> findAllTagsWithCount(){
         return tagService.findAllTagsWithCount();
+    }
+
+    @PutMapping("/{id}")
+    public Tag updateTag(@PathVariable Long id,
+                         @RequestBody Tag tag){
+        return tagService.updateTag(id,tag);
     }
 }
