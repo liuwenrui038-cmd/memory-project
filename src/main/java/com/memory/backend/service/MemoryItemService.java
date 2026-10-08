@@ -5,16 +5,20 @@ import com.memory.backend.entity.MemoryType;
 import com.memory.backend.entity.Tag;
 import com.memory.backend.repository.MemoryItemRepository;
 import com.memory.backend.repository.TagRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import jakarta.persistence.criteria.Predicate;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MemoryItemService {
+
 
     private final MemoryItemRepository memoryItemRepository;
     private final TagRepository tagRepository;
@@ -25,8 +29,8 @@ public class MemoryItemService {
     }
 
     public MemoryItem createMemory(MemoryItem memoryItem){
-        List<Tag> actualTags= new ArrayList<>();
 
+        List<Tag> actualTags= new ArrayList<>();
         for(Tag tag :memoryItem.getTags()){
             Optional<Tag> existingTag=
                     tagRepository.findByName(tag.getName());
@@ -38,10 +42,15 @@ public class MemoryItemService {
                 actualTags.add(actualTag);
             }
         }
+
+        if(memoryItem.getDiscoverDate()==null){
+            memoryItem.setDiscoverDate(LocalDate.now());
+        }
+
         memoryItem.setTags(actualTags);
         return memoryItemRepository.save(memoryItem);
     }
-    //
+
     public List<MemoryItem> getAllMemories(){
         return memoryItemRepository.findAll();
     }
@@ -127,5 +136,8 @@ public class MemoryItemService {
         return memoryItemRepository.findAll(spec);
     }
 
-
+    public List<MemoryItem> sortMemories(){
+        Sort sort=Sort.by(Sort.Direction.DESC,"discoverDate");
+        return memoryItemRepository.findAll(sort);
+    }
 }

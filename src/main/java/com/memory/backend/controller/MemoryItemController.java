@@ -60,4 +60,9 @@ public class MemoryItemController {
                                            @RequestParam(required = false) MemoryType type){
         return memoryItemService.filterMemories(favorite,type);
     }
+
+    @GetMapping("/sort")
+    public List<MemoryItem> sortMemories(){
+        return memoryItemService.sortMemories();
+    }
 }

@@ -3,6 +3,7 @@ Memory
 ├── 标题搜索
 ├── favorite
 ├── discoverDate
+│   ├──LocalDate.now()
 ├── type
 ├── Tag
 │   ├── 用户自定义
@@ -12,7 +13,8 @@ Memory
 ├── Update 时同步 Tag 关系
 ├── 根据 Tag 筛选 Memory
 ├── 计算每个Tag标记几条Memory
-└── 根据好几个memory的属性筛选Memory
+├── 根据好几个memory的属性筛选Memory
+└── 根据discoverDate给Memories排序
 
 
 对应 API：
